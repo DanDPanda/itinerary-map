@@ -30,7 +30,9 @@ const useMap = () => {
       model: "gemini-2.5-flash",
       contents: text,
       config: {
-        systemInstruction: `Create an itinerary around these coordinates: ${textPromptCoordinates}. Do not put events on the same coordinates.`,
+        systemInstruction: `Create an itinerary around these coordinates: ${textPromptCoordinates}.
+        Do not put events on the same coordinates.
+        Have the coordinates be where they start the activity.`,
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.ARRAY,
@@ -38,6 +40,9 @@ const useMap = () => {
             type: Type.OBJECT,
             properties: {
               activityName: {
+                type: Type.STRING,
+              },
+              startTime: {
                 type: Type.STRING,
               },
               description: {

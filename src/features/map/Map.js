@@ -57,6 +57,7 @@ function Map() {
         >
           <Popup>
             <h3>{loc.activityName}</h3>
+            <h4>{loc.startTime}</h4>
             {loc.description}
           </Popup>
         </Marker>
