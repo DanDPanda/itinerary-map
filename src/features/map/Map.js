@@ -43,15 +43,23 @@ function Map() {
       <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
       {textPromptCoordinates.length && (
         <Popup position={textPromptCoordinates}>
-          <input
-            type="text"
-            id="myInput"
-            placeholder="Type here..."
-            onChange={(e) => {
-              setText(e.target.value);
-            }}
-          />
-          <button onClick={handleSubmit}>Submit</button>
+          <div className="popup-form">
+            <input
+              className="popup-input"
+              type="text"
+              id="myInput"
+              placeholder="Describe the itinerary (e.g. 'sightseeing')"
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSubmit();
+              }}
+            />
+            <button className="popup-button" onClick={handleSubmit}>
+              Generate
+            </button>
+          </div>
         </Popup>
       )}
       {polylineCoordinates.length > 1 && (

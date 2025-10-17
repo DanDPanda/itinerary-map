@@ -70,6 +70,44 @@ html, body, #root, .App {
   transform: translateY(-2px);
 }
 
+/* Popup form styles */
+.popup-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 220px;
+}
+
+.popup-input {
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.12);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  font-size: 14px;
+}
+
+.popup-input:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 4px 12px rgba(30,144,255,0.18);
+}
+
+.popup-button {
+  background: linear-gradient(180deg,#1e90ff,#006ed6);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(30,144,255,0.18);
+}
+
+.popup-button:hover {
+  transform: translateY(-1px);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
