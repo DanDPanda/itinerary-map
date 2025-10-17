@@ -1,4 +1,3 @@
-import L from "leaflet";
 import useMap from "./useMap";
 import {
   MapContainer,
@@ -9,14 +8,6 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-let DefaultIcon = L.icon({
-  iconUrl:
-    "https://cdn3.iconfinder.com/data/icons/social-messaging-ui-color-line/254000/87-512.png",
-  iconAnchor: [16, 16],
-  iconSize: [32, 32],
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
 const position = [35.6764, 139.65];
 const pathOptions = { color: "red", weight: 3, opacity: 0.7 };
 
@@ -28,6 +19,7 @@ function Map() {
     RightClickEventHandler,
     textPromptCoordinates,
     handleSubmit,
+    createNumberedIcon,
   } = useMap();
   return (
     <MapContainer
@@ -50,8 +42,19 @@ function Map() {
         </Popup>
       )}
       <Polyline positions={polylineCoordinates} pathOptions={pathOptions} />
+      {activityCoordinates.length && (
+        <Marker position={textPromptCoordinates} icon={createNumberedIcon(0)}>
+          <Popup>
+            <h3>Starting Point!</h3>
+          </Popup>
+        </Marker>
+      )}
       {activityCoordinates.map((loc, index) => (
-        <Marker key={index} position={[loc.lat, loc.lng]}>
+        <Marker
+          key={index}
+          position={[loc.lat, loc.lng]}
+          icon={createNumberedIcon(index + 1)}
+        >
           <Popup>
             <h3>{loc.activityName}</h3>
             {loc.description}

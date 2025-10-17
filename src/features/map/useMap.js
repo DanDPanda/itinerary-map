@@ -1,3 +1,4 @@
+import L from "leaflet";
 import { GoogleGenAI, Type } from "@google/genai";
 import { useState } from "react";
 import { useMapEvents } from "react-leaflet";
@@ -29,7 +30,7 @@ const useMap = () => {
       model: "gemini-2.5-flash",
       contents: text,
       config: {
-        systemInstruction: `Create an itinerary around these coordinates: ${textPromptCoordinates}.`,
+        systemInstruction: `Create an itinerary around these coordinates: ${textPromptCoordinates}. Do not put events on the same coordinates.`,
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.ARRAY,
@@ -55,6 +56,7 @@ const useMap = () => {
       },
     });
     const responseObject = JSON.parse(response.text);
+    console.log("responseObject :>> ", responseObject);
     setActivityCoordinates(responseObject);
     setPolylineCoordinates([
       textPromptCoordinates,
@@ -63,6 +65,15 @@ const useMap = () => {
     ]);
   };
 
+  const createNumberedIcon = (number) =>
+    new L.divIcon({
+      className: "number-icon",
+      html: `<div class="number-circle">${number}</div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
+    });
+
   return {
     activityCoordinates,
     polylineCoordinates,
@@ -70,6 +81,7 @@ const useMap = () => {
     RightClickEventHandler,
     textPromptCoordinates,
     handleSubmit,
+    createNumberedIcon,
   };
 };
 
