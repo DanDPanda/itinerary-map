@@ -32,7 +32,8 @@ const useMap = () => {
       config: {
         systemInstruction: `Create an itinerary around these coordinates: ${textPromptCoordinates}.
         Do not put events on the same coordinates.
-        Have the coordinates be where they start the activity.`,
+        Have the coordinates be where they start the activity.
+        Have the first object be where they start the activity.`,
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.ARRAY,

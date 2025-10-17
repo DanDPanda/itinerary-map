@@ -9,7 +9,20 @@ import {
 import "leaflet/dist/leaflet.css";
 
 const position = [35.6764, 139.65];
-const pathOptions = { color: "red", weight: 3, opacity: 0.7 };
+const shadowOptions = {
+  color: "rgba(30,144,255,0.18)", // soft blue glow
+  weight: 7,
+  opacity: 0.9,
+  lineCap: "round",
+  lineJoin: "round",
+};
+const coreOptions = {
+  color: "#1e90ff",
+  weight: 5,
+  opacity: 0.95,
+  lineCap: "round",
+  lineJoin: "round",
+};
 
 function Map() {
   const {
@@ -41,13 +54,14 @@ function Map() {
           <button onClick={handleSubmit}>Submit</button>
         </Popup>
       )}
-      <Polyline positions={polylineCoordinates} pathOptions={pathOptions} />
-      {activityCoordinates.length && (
-        <Marker position={textPromptCoordinates} icon={createNumberedIcon(0)}>
-          <Popup>
-            <h3>Starting Point!</h3>
-          </Popup>
-        </Marker>
+      {polylineCoordinates.length > 1 && (
+        <>
+          <Polyline
+            positions={polylineCoordinates}
+            pathOptions={shadowOptions}
+          />
+          <Polyline positions={polylineCoordinates} pathOptions={coreOptions} />
+        </>
       )}
       {activityCoordinates.map((loc, index) => (
         <Marker
