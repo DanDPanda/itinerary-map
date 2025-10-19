@@ -4,10 +4,6 @@ import { useState } from "react";
 import { useMapEvents } from "react-leaflet";
 
 const useMap = () => {
-  console.log(
-    "import.meta.env.REACT_APP_GEMINI_API_KEY :>> ",
-    import.meta.env.VITE_GEMINI_API_KEY
-  );
   const ai = new GoogleGenAI({
     apiKey: import.meta.env.VITE_GEMINI_API_KEY,
   });
@@ -66,7 +62,6 @@ const useMap = () => {
       },
     });
     const responseObject = JSON.parse(response.text);
-    console.log("responseObject :>> ", responseObject);
     setActivityCoordinates(responseObject);
     setPolylineCoordinates([
       textPromptCoordinates,
