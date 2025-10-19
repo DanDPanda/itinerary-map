@@ -35,57 +35,63 @@ function Map() {
     createNumberedIcon,
   } = useMap();
   return (
-    <MapContainer
-      center={position}
-      zoom={9}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
-      {textPromptCoordinates.length && (
-        <Popup position={textPromptCoordinates}>
-          <div className="popup-form">
-            <input
-              className="popup-input"
-              type="text"
-              id="myInput"
-              placeholder="Describe the itinerary (e.g. 'sightseeing')"
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleSubmit();
-              }}
-            />
-            <button className="popup-button" onClick={handleSubmit}>
-              Generate
-            </button>
-          </div>
-        </Popup>
-      )}
-      {polylineCoordinates.length > 1 && (
-        <>
-          <Polyline
-            positions={polylineCoordinates}
-            pathOptions={shadowOptions}
-          />
-          <Polyline positions={polylineCoordinates} pathOptions={coreOptions} />
-        </>
-      )}
-      {activityCoordinates.map((loc, index) => (
-        <Marker
-          key={index}
-          position={[loc.lat, loc.lng]}
-          icon={createNumberedIcon(index + 1)}
-        >
-          <Popup>
-            <h3>{loc.activityName}</h3>
-            <h4>{loc.startTime}</h4>
-            {loc.description}
+    <div className="map-root">
+      <h1 className="map-center-indicator">+</h1>
+      <MapContainer
+        center={position}
+        zoom={9}
+        style={{ height: "100%", width: "100%" }}
+      >
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
+        {textPromptCoordinates.length && (
+          <Popup position={textPromptCoordinates}>
+            <div className="popup-form">
+              <input
+                className="popup-input"
+                type="text"
+                id="myInput"
+                placeholder="Describe the itinerary (e.g. 'sightseeing')"
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSubmit();
+                }}
+              />
+              <button className="popup-button" onClick={handleSubmit}>
+                Generate
+              </button>
+            </div>
           </Popup>
-        </Marker>
-      ))}
-      <RightClickEventHandler />
-    </MapContainer>
+        )}
+        {polylineCoordinates.length > 1 && (
+          <>
+            <Polyline
+              positions={polylineCoordinates}
+              pathOptions={shadowOptions}
+            />
+            <Polyline
+              positions={polylineCoordinates}
+              pathOptions={coreOptions}
+            />
+          </>
+        )}
+        {activityCoordinates.map((loc, index) => (
+          <Marker
+            key={index}
+            position={[loc.lat, loc.lng]}
+            icon={createNumberedIcon(index + 1)}
+          >
+            <Popup>
+              <h3>{loc.activityName}</h3>
+              <h4>{loc.startTime}</h4>
+              {loc.description}
+            </Popup>
+          </Marker>
+        ))}
+        <RightClickEventHandler />
+      </MapContainer>
+    </div>
   );
 }
 

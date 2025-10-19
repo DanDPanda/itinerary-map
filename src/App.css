@@ -48,6 +48,26 @@ html, body, #root, .App {
   border-radius: 0%;
 }
 
+/* Ensure the map wrapper fills the viewport so child MapContainer 100% heights work */
+.map-root {
+  height: 100vh; /* fill viewport */
+  width: 100%;
+  position: relative; /* ensure absolute children are positioned inside */
+}
+
+.map-center-indicator {
+  z-index: 1000;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-size: 28px;
+  color: rgba(30,30,30,0.9);
+  pointer-events: none; /* let clicks pass through to the map */
+  text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+}
+
 /* Styles for numbered circular map markers */
 .number-icon {
   /* remove default icon styles from leaflet */
