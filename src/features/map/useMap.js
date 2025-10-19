@@ -4,8 +4,12 @@ import { useState } from "react";
 import { useMapEvents } from "react-leaflet";
 
 const useMap = () => {
+  console.log(
+    "import.meta.env.REACT_APP_GEMINI_API_KEY :>> ",
+    import.meta.env.VITE_GEMINI_API_KEY
+  );
   const ai = new GoogleGenAI({
-    apiKey: process.env.REACT_APP_GEMINI_API_KEY,
+    apiKey: import.meta.env.VITE_GEMINI_API_KEY,
   });
 
   const [textPromptCoordinates, setTextPromptCoordinates] = useState([]);
