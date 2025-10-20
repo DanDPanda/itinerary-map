@@ -1,0 +1,80 @@
+.search-bar-container {
+  width: 90%;
+  max-width: 1080px; /* Optional: Sets a max-width for desktop view */
+  margin: 0 auto;
+  padding: 10px; /* Adds some spacing from the screen edges */
+  z-index: 1000;
+  position: absolute;
+  left: 50%;
+  top: 95%;
+  transform: translate(-50%, -50%);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #f0f4f9; /* Light gray background */
+  border-radius: 28px; /* High value for pill-shaped corners */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  padding: 8px 16px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.281);
+  opacity: 0.9;
+}
+
+.search-input {
+  width: 100%;
+  flex-grow: 1;
+  border: none;
+  background: none;
+  padding: 8px;
+  font-size: 1rem;
+  outline: none;
+  font-family: 'Google Sans', sans-serif; /* For a closer look to Gemini's font */
+}
+
+.disabled {
+  color: #9b9b9b;
+}
+
+.search-input::placeholder {
+  color: #707070;
+}
+
+.search-bar-icon,
+.search-bar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  fill: #707070;
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.search-bar-icon {
+  margin-right: 12px;
+}
+
+.action-button {
+  border: none;
+  background: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: rgba(0, 0, 0, 0.04); /* Light hover effect */
+}
+
+.action-button .icon {
+  fill: #5f6368;
+}

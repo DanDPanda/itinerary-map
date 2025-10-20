@@ -24,68 +24,44 @@ const coreOptions = {
   lineJoin: "round",
 };
 
-function Map() {
-  const {
-    activityCoordinates,
-    polylineCoordinates,
-    setText,
-    RightClickEventHandler,
-    textPromptCoordinates,
-    handleSubmit,
-    createNumberedIcon,
-  } = useMap();
+function Map({ searchResults, setMap }) {
+  const { createNumberedIcon } = useMap();
   return (
-    <MapContainer
-      center={position}
-      zoom={9}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
-      {textPromptCoordinates.length && (
-        <Popup position={textPromptCoordinates}>
-          <div className="popup-form">
-            <input
-              className="popup-input"
-              type="text"
-              id="myInput"
-              placeholder="Describe the itinerary (e.g. 'sightseeing')"
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleSubmit();
-              }}
+    <div className="map-root">
+      <MapContainer
+        center={position}
+        zoom={9}
+        style={{ height: "100%", width: "100%" }}
+        ref={setMap}
+      >
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
+        {searchResults.length > 1 && (
+          <>
+            <Polyline
+              positions={searchResults.map((loc) => [loc.lat, loc.lng])}
+              pathOptions={shadowOptions}
             />
-            <button className="popup-button" onClick={handleSubmit}>
-              Generate
-            </button>
-          </div>
-        </Popup>
-      )}
-      {polylineCoordinates.length > 1 && (
-        <>
-          <Polyline
-            positions={polylineCoordinates}
-            pathOptions={shadowOptions}
-          />
-          <Polyline positions={polylineCoordinates} pathOptions={coreOptions} />
-        </>
-      )}
-      {activityCoordinates.map((loc, index) => (
-        <Marker
-          key={index}
-          position={[loc.lat, loc.lng]}
-          icon={createNumberedIcon(index + 1)}
-        >
-          <Popup>
-            <h3>{loc.activityName}</h3>
-            <h4>{loc.startTime}</h4>
-            {loc.description}
-          </Popup>
-        </Marker>
-      ))}
-      <RightClickEventHandler />
-    </MapContainer>
+            <Polyline
+              positions={searchResults.map((loc) => [loc.lat, loc.lng])}
+              pathOptions={coreOptions}
+            />
+          </>
+        )}
+        {searchResults.map((loc, index) => (
+          <Marker
+            key={index}
+            position={[loc.lat, loc.lng]}
+            icon={createNumberedIcon(index + 1)}
+          >
+            <Popup>
+              <h3>{loc.activityName}</h3>
+              <h4>{loc.startTime}</h4>
+              {loc.description}
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   );
 }
 
