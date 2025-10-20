@@ -30,7 +30,7 @@ const SearchBar = ({
   });
   return (
     <div className="search-bar-container">
-      {!searchResults.length ? (
+      {/* {!searchResults.length ? (
         <div className="search-help" role="status" aria-live="polite">
           Use this search bar below to generate an itinerary based on the text
           and the current location of the + on the map!
@@ -39,7 +39,7 @@ const SearchBar = ({
         <div className="search-help" role="status" aria-live="polite">
           Start a new search by clicking the X button in the search bar!
         </div>
-      )}
+      )} */}
 
       <div className="search-bar">
         <input
