@@ -50,7 +50,7 @@ const SearchBar = ({
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type your intinerary here!"
-          disabled={searchResults.length}
+          disabled={searchResults.length || isLoading}
           onKeyDown={(e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
               handleSubmit(text);
@@ -63,6 +63,7 @@ const SearchBar = ({
           ) : !searchResults.length ? (
             <button
               className="action-button"
+              disabled={text.trim().length === 0}
               onClick={() => handleSubmit(text)}
             >
               <SearchIcon />
