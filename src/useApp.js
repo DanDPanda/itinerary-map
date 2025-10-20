@@ -1,25 +1,24 @@
+import L from "leaflet";
 import { GoogleGenAI, Type } from "@google/genai";
+import { useState } from "react";
+import { useMapEvents } from "react-leaflet";
 
-import "./SearchBar.css";
-
-// Using SVG for the icons to avoid external dependencies
-const SearchIcon = () => (
-  <svg viewBox="0 0 24 24" className="icon">
-    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-  </svg>
-);
-
-const SearchBar = ({ setSearchResults, map }) => {
+const useMap = () => {
   const ai = new GoogleGenAI({
     apiKey: import.meta.env.VITE_GEMINI_API_KEY,
   });
 
-  const handleSubmit = async (text) => {
+  const [textPromptCoordinates, setTextPromptCoordinates] = useState([]);
+  const [activityCoordinates, setActivityCoordinates] = useState([]);
+  const [polylineCoordinates, setPolylineCoordinates] = useState([]);
+  const [text, setText] = useState("");
+
+  const handleSubmit = async () => {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: text,
       config: {
-        systemInstruction: `Create an itinerary around these coordinates: ${map.getCenter()}.
+        systemInstruction: `Create an itinerary around these coordinates: ${textPromptCoordinates}.
         Do not put events on the same coordinates.
         Have the coordinates be where they start the activity.
         Have the first object be where they start the activity.`,
@@ -51,29 +50,31 @@ const SearchBar = ({ setSearchResults, map }) => {
       },
     });
     const responseObject = JSON.parse(response.text);
-    setSearchResults(responseObject);
+    setActivityCoordinates(responseObject);
+    setPolylineCoordinates([
+      textPromptCoordinates,
+      ...responseObject.map((loc) => [loc.lat, loc.lng]),
+      textPromptCoordinates,
+    ]);
   };
-  return (
-    <div className="search-bar-container">
-      <div className="search-bar">
-        <input
-          type="text"
-          className="search-input"
-          placeholder="What would you like to do?"
-        />
-        <div className="search-bar-actions">
-          <button
-            className="action-button"
-            onClick={() =>
-              handleSubmit(document.querySelector(".search-input").value)
-            }
-          >
-            <SearchIcon />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+
+  const createNumberedIcon = (number) =>
+    new L.divIcon({
+      className: "number-icon",
+      html: `<div class="number-circle">${number}</div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+      popupAnchor: [0, -16],
+    });
+
+  return {
+    activityCoordinates,
+    polylineCoordinates,
+    // setText,
+    // textPromptCoordinates,
+    // handleSubmit,
+    createNumberedIcon,
+  };
 };
 
-export default SearchBar;
+export default useMap;
