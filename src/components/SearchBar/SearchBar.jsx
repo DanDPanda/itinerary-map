@@ -8,13 +8,7 @@ const SearchIcon = () => (
   </svg>
 );
 
-const SearchBar = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
-
-  const handleFormSubmit = (event) => {
-    console.log("event :>> ", event);
-  };
-
+const SearchBar = () => {
   return (
     <div className="search-bar-container">
       <div className="search-bar">

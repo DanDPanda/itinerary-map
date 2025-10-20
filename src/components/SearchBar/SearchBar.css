@@ -1,6 +1,6 @@
 .search-bar-container {
   width: 90%;
-  max-width: 720px; /* Optional: Sets a max-width for desktop view */
+  max-width: 1080px; /* Optional: Sets a max-width for desktop view */
   margin: 0 auto;
   padding: 10px; /* Adds some spacing from the screen edges */
   z-index: 1000;

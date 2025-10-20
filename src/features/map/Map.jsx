@@ -7,7 +7,6 @@ import {
   Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import SearchBar from "../../components/SearchBar/SearchBar";
 
 const position = [35.6764, 139.65];
 const shadowOptions = {
@@ -37,8 +36,6 @@ function Map() {
   } = useMap();
   return (
     <div className="map-root">
-      <SearchBar onSearch={(query) => setText(query)} />
-      <h1 className="map-center-indicator">+</h1>
       <MapContainer
         center={position}
         zoom={9}
