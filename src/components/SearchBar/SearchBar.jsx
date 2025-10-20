@@ -20,7 +20,7 @@ const SearchBar = ({
   map,
   isLoading,
   setIsLoading,
-  setOriginPoint
+  setOriginPoint,
 }) => {
   const { handleSubmit, handleClose, text, setText } = useSearchBar({
     setSearchResults,
@@ -30,17 +30,32 @@ const SearchBar = ({
   });
   return (
     <div className="search-bar-container">
+      {!searchResults.length ? (
+        <div className="search-help" role="status" aria-live="polite">
+          Use this search bar below to generate an itinerary based on the text
+          and the current location of the + on the map!
+        </div>
+      ) : (
+        <div className="search-help" role="status" aria-live="polite">
+          Start a new search by clicking the X button in the search bar!
+        </div>
+      )}
+
       <div className="search-bar">
         <input
-          type="text"
           className={
             "search-input" +
             (searchResults.length || isLoading ? " disabled" : "")
           }
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Point at a location and type your desired itinerary ideas..."
+          placeholder="Type your intinerary here!"
           disabled={searchResults.length}
+          onKeyDown={(e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+              handleSubmit(text);
+            }
+          }}
         />
         <div className="search-bar-actions">
           {isLoading ? (
@@ -48,9 +63,7 @@ const SearchBar = ({
           ) : !searchResults.length ? (
             <button
               className="action-button"
-              onClick={() =>
-                handleSubmit(document.querySelector(".search-input").value)
-              }
+              onClick={() => handleSubmit(text)}
             >
               <SearchIcon />
             </button>

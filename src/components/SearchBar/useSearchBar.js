@@ -55,7 +55,6 @@ const useSearchBar = ({
       });
       const responseObject = JSON.parse(response.text);
       setSearchResults(responseObject);
-      setText("(Click X for new search) - " + text);
     } catch (error) {
       console.log(error);
     } finally {
