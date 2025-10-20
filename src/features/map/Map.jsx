@@ -1,5 +1,4 @@
 import useMap from "./useMap";
-import { useMapEvents } from "react-leaflet";
 import {
   MapContainer,
   TileLayer,

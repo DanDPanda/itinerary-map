@@ -9,9 +9,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="map-center-indicator">+</h1>
+      {!searchResults.length && <h1 className="map-center-indicator">+</h1>}
       <Map searchResults={searchResults} setMap={setMap} />
-      <SearchBar setSearchResults={setSearchResults} map={map} />
+      <SearchBar
+        searchResults={searchResults}
+        setSearchResults={setSearchResults}
+        map={map}
+      />
     </div>
   );
 }

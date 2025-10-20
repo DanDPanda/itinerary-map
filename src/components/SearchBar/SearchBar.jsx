@@ -1,6 +1,5 @@
-import { GoogleGenAI, Type } from "@google/genai";
-
 import "./SearchBar.css";
+import useSearchBar from "./useSearchBar";
 
 // Using SVG for the icons to avoid external dependencies
 const SearchIcon = () => (
@@ -9,67 +8,43 @@ const SearchIcon = () => (
   </svg>
 );
 
-const SearchBar = ({ setSearchResults, map }) => {
-  const ai = new GoogleGenAI({
-    apiKey: import.meta.env.VITE_GEMINI_API_KEY,
-  });
+const CloseIcon = () => (
+  <svg viewBox="0 0 24 24" className="icon">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+  </svg>
+);
 
-  const handleSubmit = async (text) => {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: text,
-      config: {
-        systemInstruction: `Create an itinerary around these coordinates: ${map.getCenter()}.
-        Do not put events on the same coordinates.
-        Have the coordinates be where they start the activity.
-        Have the first object be where they start the activity.`,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              activityName: {
-                type: Type.STRING,
-              },
-              startTime: {
-                type: Type.STRING,
-              },
-              description: {
-                type: Type.STRING,
-              },
-              lat: {
-                type: Type.NUMBER,
-              },
-              lng: {
-                type: Type.NUMBER,
-              },
-            },
-            propertyOrdering: ["activityName", "description", "lat", "lng"],
-          },
-        },
-      },
-    });
-    const responseObject = JSON.parse(response.text);
-    setSearchResults(responseObject);
-  };
+const SearchBar = ({ setSearchResults, searchResults, map }) => {
+  const { handleSubmit, handleClose, text, setText } = useSearchBar({
+    setSearchResults,
+    map,
+  });
   return (
     <div className="search-bar-container">
       <div className="search-bar">
         <input
           type="text"
           className="search-input"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           placeholder="What would you like to do?"
+          disabled={searchResults.length}
         />
         <div className="search-bar-actions">
-          <button
-            className="action-button"
-            onClick={() =>
-              handleSubmit(document.querySelector(".search-input").value)
-            }
-          >
-            <SearchIcon />
-          </button>
+          {!searchResults.length ? (
+            <button
+              className="action-button"
+              onClick={() =>
+                handleSubmit(document.querySelector(".search-input").value)
+              }
+            >
+              <SearchIcon />
+            </button>
+          ) : (
+            <button className="action-button" onClick={() => handleClose()}>
+              <CloseIcon />
+            </button>
+          )}
         </div>
       </div>
     </div>
