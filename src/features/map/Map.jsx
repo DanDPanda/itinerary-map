@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Polyline, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Marker } from "@adamscybot/react-leaflet-component-marker";
 import Spinner from "../../components/Spinner/Spinner";
+import "./Map.css";
 
 const position = [35.6764, 139.65];
 const shadowOptions = {
