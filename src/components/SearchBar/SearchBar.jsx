@@ -30,7 +30,7 @@ const SearchBar = ({ setSearchResults, searchResults, map }) => {
           }
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Point at a location and ask for an itinerary..."
+          placeholder="Point at a location and type your desired itinerary ideas..."
           disabled={searchResults.length}
         />
         <div className="search-bar-actions">
