@@ -34,7 +34,7 @@ function Map({ searchResults, setMap, isLoading, originPoint }) {
         {isLoading && (
           <Marker
             position={originPoint}
-            icon={<Spinner size={28} fill={true} />}
+            icon={<Spinner size={40} fill={true} />}
           />
         )}
         {searchResults.length > 1 && (
