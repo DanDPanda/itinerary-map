@@ -28,6 +28,7 @@ function Map({ searchResults, setMap, isLoading, originPoint }) {
         center={position}
         zoom={9}
         style={{ height: "100%", width: "100%" }}
+        scrollWheelZoom="center"
         ref={setMap}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
