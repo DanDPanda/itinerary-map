@@ -39,15 +39,6 @@ html, body, #root, .App {
   text-align: center;
 }
 
-.icon {
-  width: 25px;
-  height: 25px;
-  display: grid;
-  align-items: center;
-  background-color: red;
-  border-radius: 0%;
-}
-
 /* Ensure the map wrapper fills the viewport so child MapContainer 100% heights work */
 .map-root {
   height: 100vh; /* fill viewport */
