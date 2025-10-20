@@ -1,5 +1,6 @@
 import "./SearchBar.css";
 import useSearchBar from "./useSearchBar";
+import Spinner from "../Spinner/Spinner";
 
 const SearchIcon = () => (
   <svg viewBox="0 0 24 24" className="icon">
@@ -14,7 +15,7 @@ const CloseIcon = () => (
 );
 
 const SearchBar = ({ setSearchResults, searchResults, map }) => {
-  const { handleSubmit, handleClose, text, setText } = useSearchBar({
+  const { handleSubmit, handleClose, text, setText, isLoading } = useSearchBar({
     setSearchResults,
     map,
   });
@@ -23,14 +24,19 @@ const SearchBar = ({ setSearchResults, searchResults, map }) => {
       <div className="search-bar">
         <input
           type="text"
-          className={"search-input" + (searchResults.length ? " disabled" : "")}
+          className={
+            "search-input" +
+            (searchResults.length || isLoading ? " disabled" : "")
+          }
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="What kind of itinerary would you like at this location?"
+          placeholder="Point at a location and ask for an itinerary..."
           disabled={searchResults.length}
         />
         <div className="search-bar-actions">
-          {!searchResults.length ? (
+          {isLoading ? (
+            <Spinner size={28} />
+          ) : !searchResults.length ? (
             <button
               className="action-button"
               onClick={() =>
