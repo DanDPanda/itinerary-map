@@ -14,10 +14,19 @@ const CloseIcon = () => (
   </svg>
 );
 
-const SearchBar = ({ setSearchResults, searchResults, map }) => {
-  const { handleSubmit, handleClose, text, setText, isLoading } = useSearchBar({
+const SearchBar = ({
+  setSearchResults,
+  searchResults,
+  map,
+  isLoading,
+  setIsLoading,
+  setOriginPoint
+}) => {
+  const { handleSubmit, handleClose, text, setText } = useSearchBar({
     setSearchResults,
     map,
+    setIsLoading,
+    setOriginPoint,
   });
   return (
     <div className="search-bar-container">

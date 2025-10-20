@@ -1,9 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { useState } from "react";
 
-const useSearchBar = ({ setSearchResults, map }) => {
+const useSearchBar = ({
+  setSearchResults,
+  map,
+  setIsLoading,
+  setOriginPoint,
+}) => {
   const [text, setText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const ai = new GoogleGenAI({
     apiKey: import.meta.env.VITE_GEMINI_API_KEY,
@@ -13,6 +17,7 @@ const useSearchBar = ({ setSearchResults, map }) => {
     setIsLoading(true);
     let response;
     try {
+      setOriginPoint(map.getCenter());
       response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: text,
@@ -61,9 +66,10 @@ const useSearchBar = ({ setSearchResults, map }) => {
   const handleClose = () => {
     setSearchResults([]);
     setText("");
+    setOriginPoint([]);
   };
 
-  return { handleSubmit, handleClose, text, setText, isLoading };
+  return { handleSubmit, handleClose, text, setText };
 };
 
 export default useSearchBar;

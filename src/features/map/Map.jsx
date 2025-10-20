@@ -1,12 +1,8 @@
 import useMap from "./useMap";
-import {
-  MapContainer,
-  TileLayer,
-  Polyline,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { Marker } from "@adamscybot/react-leaflet-component-marker";
+import Spinner from "../../components/Spinner/Spinner";
 
 const position = [35.6764, 139.65];
 const shadowOptions = {
@@ -24,7 +20,7 @@ const coreOptions = {
   lineJoin: "round",
 };
 
-function Map({ searchResults, setMap }) {
+function Map({ searchResults, setMap, isLoading, originPoint }) {
   const { createNumberedIcon } = useMap();
   return (
     <div className="map-root">
@@ -35,6 +31,9 @@ function Map({ searchResults, setMap }) {
         ref={setMap}
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
+        {isLoading && (
+          <Marker position={originPoint} icon={<Spinner size={28} />} />
+        )}
         {searchResults.length > 1 && (
           <>
             <Polyline
