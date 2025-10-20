@@ -32,7 +32,10 @@ function Map({ searchResults, setMap, isLoading, originPoint }) {
       >
         <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png" />
         {isLoading && (
-          <Marker position={originPoint} icon={<Spinner size={28} />} />
+          <Marker
+            position={originPoint}
+            icon={<Spinner size={28} fill={true} />}
+          />
         )}
         {searchResults.length > 1 && (
           <>
