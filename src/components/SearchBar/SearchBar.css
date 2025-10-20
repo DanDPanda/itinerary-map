@@ -23,6 +23,7 @@
 }
 
 .search-input {
+  width: 100%;
   flex-grow: 1;
   border: none;
   background: none;
