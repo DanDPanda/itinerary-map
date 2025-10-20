@@ -46,6 +46,10 @@ const useSearchBar = ({ setSearchResults, map }) => {
     });
     const responseObject = JSON.parse(response.text);
     setSearchResults(responseObject);
+    setText(
+      "(Search disabled. Click the X on the right to clear this search and start a new one!) - " +
+        text
+    );
   };
 
   const handleClose = () => {

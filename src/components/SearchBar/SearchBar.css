@@ -20,6 +20,7 @@
   padding: 8px 16px;
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.281);
+  opacity: 0.9;
 }
 
 .search-input {
@@ -29,9 +30,12 @@
   background: none;
   padding: 8px;
   font-size: 1rem;
-  color: #202124;
   outline: none;
   font-family: 'Google Sans', sans-serif; /* For a closer look to Gemini's font */
+}
+
+.disabled {
+  color: #9b9b9b;
 }
 
 .search-input::placeholder {
