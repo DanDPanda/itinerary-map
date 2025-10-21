@@ -30,17 +30,6 @@ const SearchBar = ({
   });
   return (
     <div className="search-bar-container">
-      {/* {!searchResults.length ? (
-        <div className="search-help" role="status" aria-live="polite">
-          Use this search bar below to generate an itinerary based on the text
-          and the current location of the + on the map!
-        </div>
-      ) : (
-        <div className="search-help" role="status" aria-live="polite">
-          Start a new search by clicking the X button in the search bar!
-        </div>
-      )} */}
-
       <div className="search-bar">
         <input
           className={
@@ -49,10 +38,10 @@ const SearchBar = ({
           }
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Type your intinerary here!"
+          placeholder="What would you like to see?"
           disabled={searchResults.length || isLoading}
           onKeyDown={(e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+            if (e.key === "Enter") {
               handleSubmit(text);
             }
           }}
