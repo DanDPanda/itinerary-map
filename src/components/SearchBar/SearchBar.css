@@ -1,3 +1,15 @@
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 #1e90ff;
+  }
+  50% {
+    box-shadow: 0 0 0 2px #74baff;
+  }
+  100% {
+    box-shadow: 0 0 0 0 #1e90ff;
+  }
+}
+
 .search-bar-container {
   width: 90%;
   max-width: 1080px; /* Optional: Sets a max-width for desktop view */
@@ -6,7 +18,7 @@
   z-index: 1000;
   position: absolute;
   left: 50%;
-  top: 90%;
+  top: 92%;
   transform: translate(-50%, -50%);
 }
 
@@ -21,6 +33,12 @@
   box-sizing: border-box;
   border: 1px solid #6cb5ff;
   opacity: 0.9;
+  animation: pulse-glow 2s infinite;
+}
+
+.search-bar-disabled {
+  animation: none;
+  border: 1px solid #bbbbbb;
 }
 
 .search-input {
@@ -69,6 +87,7 @@
   justify-content: center;
   border-radius: 50%;
   transition: background-color 0.3s;
+  animation: pulse-glow 2s infinite;
 }
 
 .action-button:hover {

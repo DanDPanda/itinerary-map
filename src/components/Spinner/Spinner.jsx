@@ -9,7 +9,7 @@ const Spinner = ({ size = 18, fill = false }) => (
         cy="25"
         r="20"
         fill={fill ? "black" : "none"}
-        fillOpacity={fill ? 0.5 : "none"}
+        fillOpacity={fill ? 0.3 : "none"}
         strokeWidth="4"
       />
       <path

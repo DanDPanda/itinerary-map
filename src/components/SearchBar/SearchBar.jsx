@@ -30,7 +30,12 @@ const SearchBar = ({
   });
   return (
     <div className="search-bar-container">
-      <div className="search-bar">
+      <div
+        className={
+          "search-bar" +
+          (isLoading || searchResults.length ? " search-bar-disabled" : "")
+        }
+      >
         <input
           className={
             "search-input" +
