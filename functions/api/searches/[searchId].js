@@ -1,4 +1,3 @@
 export function onRequest(context) {
-  console.log("sdadsa");
   return new Response(context.params.user);
 }
